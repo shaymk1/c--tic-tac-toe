@@ -40,10 +40,34 @@ int main()
 
         // get player input
         cout << "The current player is : " << current_player << endl;
-        cout << "Please Enter two numbers from 0-2 for row and column: " << endl;
-        cin >> row >> column;
+        while (true)
+        {
+            cout << "Please Enter two numbers from 0-2 for row and column: " << endl;
+            cin >> row >> column;
+            // checking if values are within the ranges of 0 and 2
+            if (row < 0 || row > 2 || column < 0 || column > 2)
+            {
+                cout << "invalid input, please try again, values must be between 0 and 2" << endl;
+            }
+            // checking if there is no empty space
+            else if (board[row][column] != ' ')
+            {
+                cout << "board is full, please try again!" << endl;
+            }
+            else
+            {
+                break;
+            }
+            // reset the board
+            row = -1;
+            column = -1;
+            cin.clear(); // clear the error flags
+            // discard the values from the input stream and skip to the new line upto 10 000 characters already in input stream
+            cin.ignore(10000, '\n');
+        }
+
         board[row][column] = current_player;
-        //if current player is equal to player_x, then we set the current_player to player_o, otherwise to player_x
+        // if current player is equal to player_x, then we set the current_player to player_o, otherwise to player_x
         current_player = (current_player == player_x) ? player_0 : player_x;
     }
 }
